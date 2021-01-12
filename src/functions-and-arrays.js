@@ -1,19 +1,85 @@
 // Iteration #1: Find the maximum
-
+function maxOfTwoNumbers(num1, num2) {
+  if (num1 > num2) {
+    return num1;
+  } else {
+    return num2;
+  }
+}
 // Iteration #2: Find longest word
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
-
+function findLongestWord(listOfWords) {
+  let longest = "";
+  if (listOfWords.length === 0) {
+    return null;
+  }
+  listOfWords.forEach(word => {
+    if (word.length > longest.length) {
+      longest = word;
+    }
+  });
+  return longest;
+}
 // Iteration #3: Calculate the sum
-
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
+const sumNumbers = listOfNumbers => {
+  let sum = 0;
+  listOfNumbers.forEach(element => {
+    sum += element;
+  });
+  return sum;
+}
+// Bonus - Iteration #3.1: A generic sum() function
+const mixedArr = [6, 12, 'miami', 1, true, 'barca', '200', 'lisboa', 8, 10];
+const sum = mixedData => {
+  let cleanArr = [];
+  mixedData.forEach(element => {
+    if (typeof element === 'number') {
+      cleanArr.push(element);
+    } else if (typeof element === 'string') {
+      cleanArr.push(element.length);
+    } else if (typeof element === 'boolean') {
+      if (element) {
+        cleanArr.push(1);
+      } else {
+        cleanArr.push(0);
+      }
+    } else if (typeof element === 'object' || typeof element === 'array') {
+      throw new Error("Unsupported data type sir or ma'am");
+    }
 
+  })
+  return sumNumbers(cleanArr);
+}
+// should return: 57
 // Iteration #4: Calculate the average
 // Level 1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
-
+const averageNumbers = incomingArray => {
+  if (incomingArray.length === 0) {
+    return null;
+  }
+  return sumNumbers(incomingArray) / incomingArray.length;
+}
 // Level 2: Array of strings
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
-
+const averageWordLength = stringArray => {
+  if (stringArray.length === 0) {
+    return null;
+  }
+  let cleanStringArray = [];
+  stringArray.forEach(element => {
+    cleanStringArray.push(element.length);
+  })
+  return sumNumbers(cleanStringArray) / stringArray.length;
+}
+// Bonus - Iteration #4.1: A generic avg() function
+const avg = mixedArray => {
+  if (mixedArray.length === 0) {
+    return null;
+  }
+  return Number((sum(mixedArray) / mixedArray.length).toFixed(2));
+}
 // Iteration #5: Unique arrays
 const wordsUnique = [
   'crab',
@@ -29,8 +95,32 @@ const wordsUnique = [
   'bring'
 ];
 
+const uniquifyArray = wordsUni => {
+  if (wordsUni.length === 0) {
+    return null;
+  }
+  let cleanWordsUni = [];
+  wordsUni.forEach(element => {
+    if (!cleanWordsUni.includes(element)) {
+      cleanWordsUni.push(element);
+    }
+  })
+  return cleanWordsUni;
+}
+
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
+
+const doesWordExist = (arraySearch, wordSearch) => {
+  if (arraySearch.length === 0) {
+    return null;
+  }
+  if (arraySearch.includes(wordSearch)) {
+    return true;
+  } else {
+    return false
+  }
+}
 
 // Iteration #7: Count repetition
 const wordsCount = [
@@ -47,8 +137,21 @@ const wordsCount = [
   'matter'
 ];
 
-// Iteration #8: Bonus
+const howManyTimes = (arrayCount, wordCount) => {
+  let count = 0;
+  if (arrayCount.length === 0) {
+    return 0;
+  }
+  arrayCount.forEach(element => {
+    if (element === wordCount) {
+      count++;
+    }
+  })
 
+  return count;
+}
+
+// Iteration #8: Bonus
 const matrix = [
   [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
   [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
@@ -71,3 +174,21 @@ const matrix = [
   [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
+
+const greatestProduct = matrix => {
+  let biggest = 0;
+  let stringBiggest = "";
+  for (let x = 0; x < matrix.length-3; x++) {
+    for (let y = 0; y < matrix[x].length-3; y++) {
+      if (biggest < (matrix[x][y] * matrix[x + 1][y] * matrix[x + 2][y] * matrix[x + 3][y])){
+        biggest = (matrix[x][y] * matrix[x + 1][y] * matrix[x + 2][y] * matrix[x + 3][y]);
+        stringBiggest = `${matrix[x][y]} x ${matrix[x + 1][y]} x ${matrix[x + 2][y]} x ${matrix[x + 3][y]} = ${biggest}`
+      }
+      if (biggest < (matrix[x][y] * matrix[x][y + 1] * matrix[x][y + 2] * matrix[x][y + 3])){
+        biggest = (matrix[x][y] * matrix[x][y + 1] * matrix[x][y + 2] * matrix[x][y + 3]);
+        stringBiggest = `${matrix[x][y]} x ${matrix[x][y + 1]} x ${matrix[x][y + 2]} x ${matrix[x][y + 3]} = ${biggest}`
+      }
+    }
+  }
+  return biggest;
+}
