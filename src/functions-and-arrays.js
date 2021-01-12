@@ -172,7 +172,7 @@ const matrix = [
   [4, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36],
   [20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16],
   [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
-  [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
+  [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 480]
 ];
 
 const greatestProduct = matrix => {
@@ -190,5 +190,19 @@ const greatestProduct = matrix => {
       }
     }
   }
+  for (let x = matrix.length-1; x > matrix.length-4; x--) {
+    for (let y = matrix.length-1; y > matrix.length-4; y--) {
+      if (biggest < (matrix[x][y] * matrix[x - 1][y] * matrix[x - 2][y] * matrix[x - 3][y])){
+        biggest = (matrix[x][y] * matrix[x - 1][y] * matrix[x - 2][y] * matrix[x - 3][y]);
+        stringBiggest = `${matrix[x][y]} x ${matrix[x - 1][y]} x ${matrix[x - 2][y]} x ${matrix[x - 3][y]} = ${biggest}`
+      }
+      if (biggest < (matrix[x][y] * matrix[x][y - 1] * matrix[x][y - 2] * matrix[x][y - 3])){
+        biggest = (matrix[x][y] * matrix[x][y - 1] * matrix[x][y - 2] * matrix[x][y - 3]);
+        stringBiggest = `${matrix[x][y]} x ${matrix[x][y - 1]} x ${matrix[x][y - 2]} x ${matrix[x][y - 3]} = ${biggest}`
+      }
+    }
+  }
   return biggest;
 }
+
+console.log(greatestProduct(matrix));
